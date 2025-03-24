@@ -9,6 +9,6 @@ class Promocao(Base):
     descricao = Column(String, nullable=False)
     tipo_desconto = Column(String, nullable=False)  
     valor_desconto = Column(Float, nullable=False)  
-    produto_id = Column(Integer, ForeignKey("produtos.id"), nullable=True)  
+    produto_id = Column(Integer, ForeignKey("menu.id"), nullable=True)  
 
-    produto = relationship("Produto", back_populates="promocoes")
+    p = relationship("Produto", back_populates="promocoes")

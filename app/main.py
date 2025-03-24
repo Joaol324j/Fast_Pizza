@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import menu_route, promotion_route
+from app.routes import menu_route, promotion_route, order_route
 from app.configs.db import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -12,3 +12,4 @@ def read_root():
 
 app.include_router(menu_route.router)
 app.include_router(promotion_route.router)
+app.include_router(order_route.router)

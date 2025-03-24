@@ -11,4 +11,4 @@ class Promocao(Base):
     valor_desconto = Column(Float, nullable=False)  
     produto_id = Column(Integer, ForeignKey("menu.id"), nullable=True)  
 
-    p = relationship("Produto", back_populates="promocoes")
+    produto = relationship("Produto", back_populates="promocoes")

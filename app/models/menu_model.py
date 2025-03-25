@@ -10,3 +10,4 @@ class Produto(Base):
     preco = Column(Float, nullable=False)
     categoria = Column(String, nullable=False)
     promocoes = relationship("Promocao", back_populates="produto")
+    comentarios = relationship("ComentarioProduto", back_populates="produto", cascade="all, delete-orphan")

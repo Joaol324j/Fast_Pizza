@@ -4,7 +4,7 @@ from app.schemas.comment_schema import ComentarioProdutoCreate, ComentarioProdut
 from app.services.comment_service import ComentarioProdutoService
 from app.configs.db import get_db
 
-router = APIRouter()
+router = APIRouter(prefix="/comentarios", tags=["Comentários"])
 
 @router.post("/comentarios/", response_model=ComentarioProdutoResponse)
 def criar_comentario(comentario: ComentarioProdutoCreate, db: Session = Depends(get_db)):

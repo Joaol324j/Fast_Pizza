@@ -20,7 +20,8 @@ class UsuarioRepository:
     @staticmethod
     def get_by_username(db: Session, username: str):
         """ Busca um usuário pelo nome de usuário """
-        return db.query(Usuario).filter(Usuario.username == username).first()
+        return db.query(Usuario).filter(Usuario.username == str(username)).first()
+
 
     @staticmethod
     def get_by_email(db: Session, email: str):

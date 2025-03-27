@@ -16,6 +16,14 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/login")
+async def home(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.get("/register")
+async def home(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
 app.include_router(menu_route.router)
 app.include_router(promotion_route.router)
 app.include_router(order_route.router)

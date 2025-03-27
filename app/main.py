@@ -24,6 +24,10 @@ async def home(request: Request):
 async def home(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
+@app.get("/forgot-password")
+async def home(request: Request):
+    return templates.TemplateResponse("forgot.html", {"request": request})
+
 app.include_router(menu_route.router)
 app.include_router(promotion_route.router)
 app.include_router(order_route.router)

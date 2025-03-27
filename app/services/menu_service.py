@@ -1,3 +1,4 @@
+from fastapi import UploadFile
 from sqlalchemy.orm import Session
 from app.repositories.menu_repo import ProdutoRepository
 from app.schemas.menu_schema import ProdutoCreate
@@ -12,12 +13,12 @@ class ProdutoService:
         return ProdutoRepository.get_by_id(db, produto_id)
 
     @staticmethod
-    def adicionar_produto(db: Session, produto_data: ProdutoCreate):
-        return ProdutoRepository.create(db, produto_data)
+    def adicionar_produto(db: Session, produto_data: ProdutoCreate, file: UploadFile = None):
+        return ProdutoRepository.create(db, produto_data, file)
 
     @staticmethod
-    def atualizar_produto(db: Session, produto_id: int, produto_data: ProdutoCreate):
-        return ProdutoRepository.update(db, produto_id, produto_data)
+    def atualizar_produto(db: Session, produto_id: int, produto_data: ProdutoCreate, file: UploadFile = None):
+        return ProdutoRepository.update(db, produto_id, produto_data, file)
 
     @staticmethod
     def remover_produto(db: Session, produto_id: int):

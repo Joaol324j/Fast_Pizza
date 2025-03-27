@@ -1,44 +1,29 @@
 from sqlalchemy.orm import Session
 from app.models.menu_model import Produto
 from app.schemas.menu_schema import ProdutoCreate
+import os
+import shutil
+from fastapi import UploadFile
 
 class ProdutoRepository:
     @staticmethod
-    def get_all(db: Session):
-        """Retorna todos os produtos do cardápio"""
-        return db.query(Produto).all()
+    def create(db: Session, produto_data: ProdutoCreate, file: UploadFile = None):
+        file_path = f"uploads/{file.filename}"
 
-    @staticmethod
-    def get_by_id(db: Session, produto_id: int):
-        """Busca um produto pelo ID"""
-        return db.query(Produto).filter(Produto.id == produto_id).first()
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-    @staticmethod
-    def create(db: Session, produto_data: ProdutoCreate):
-        """Adiciona um novo produto ao cardápio"""
-        produto = Produto(**produto_data.model_dump())
+        if file:
+            with open(file_path, "wb") as buffer:
+                buffer.write(file.file.read())
+
+        produto = Produto(
+            nome=produto_data.nome,
+            preco=produto_data.preco,
+            categoria=produto_data.categoria,
+            imagem=file_path if file else None 
+        )
+        
         db.add(produto)
         db.commit()
         db.refresh(produto)
-        return produto
-
-    @staticmethod
-    def update(db: Session, produto_id: int, produto_data: ProdutoCreate):
-        """Atualiza um produto existente"""
-        produto = db.query(Produto).filter(Produto.id == produto_id).first()
-        if produto:
-            produto.nome = produto_data.nome
-            produto.preco = produto_data.preco
-            produto.categoria = produto_data.categoria
-            db.commit()
-            db.refresh(produto)
-        return produto
-
-    @staticmethod
-    def delete(db: Session, produto_id: int):
-        """Remove um produto do cardápio"""
-        produto = db.query(Produto).filter(Produto.id == produto_id).first()
-        if produto:
-            db.delete(produto)
-            db.commit()
         return produto

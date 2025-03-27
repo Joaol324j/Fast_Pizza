@@ -1,10 +1,14 @@
 import smtplib
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import os
 
-SMTP_SERVER = "smtp.gmail.com"  
-SMTP_PORT = 587
-EMAIL_SENDER = "joaol324j@gmail.com"
-EMAIL_PASSWORD = "psqb hxrv aaby waqi"
+load_dotenv()
+
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT=587
+EMAIL_SENDER=os.getenv("EMAIL_SENDER")
+EMAIL_PASSWORD=os.getenv("EMAIL_PASSWORD")
 
 def send_email(to_email: str, subject: str, body: str):
     """ Envia um email com o link de recuperação """

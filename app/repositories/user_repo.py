@@ -16,6 +16,10 @@ class UsuarioRepository:
         db.commit()
         db.refresh(usuario)
         return usuario
+    
+    @staticmethod
+    def get_by_id(db: Session, user_id: int):
+        return db.query(Usuario).filter(Usuario.id == user_id).first()
 
     @staticmethod
     def get_by_username(db: Session, username: str):

@@ -23,13 +23,22 @@ class PasswordResetService:
     def redefinir_senha(db: Session, token: str, nova_senha: str):
         """ Valida o token e redefine a senha """
         reset_token = ResetTokenRepository.get_by_token(db, token)
-        if not reset_token or reset_token.expires_at < datetime.utcnow():
-            return {"erro": "Token inválido ou expirado"}
+        
+        if not reset_token:
+            return {"erro": "Token inválido ou não encontrado"}
 
-        usuario = UsuarioRepository.get_by_username(db, reset_token.user_id)
+        if reset_token.expires_at < datetime.utcnow():
+            return {"erro": "Token expirado"}
+
+        print(f"Token encontrado: {reset_token}, User ID: {reset_token.user_id}")
+
+        usuario = UsuarioRepository.get_by_id(db, reset_token.user_id)  
+        
+        if not usuario:
+            return {"erro": "Usuário não encontrado"}
+
         usuario.hashed_password = hash_password(nova_senha)
         db.commit()
 
-        # Removendo o token após o uso
         ResetTokenRepository.delete(db, token)
         return {"msg": "Senha redefinida com sucesso"}

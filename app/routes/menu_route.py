@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from app.configs.db import get_db
 from app.services.menu_service import ProdutoService
 from app.schemas.menu_schema import ProdutoCreate, ProdutoResponse
 
 router = APIRouter(prefix="/produtos", tags=["Produtos"])
+
+UPLOAD_DIR = "uploads/"
 
 @router.get("/", response_model=List[ProdutoResponse])
 def listar_produtos(db: Session = Depends(get_db)):
@@ -19,15 +21,38 @@ def buscar_produto(produto_id: int, db: Session = Depends(get_db)):
     return produto
 
 @router.post("/", response_model=ProdutoResponse)
-def adicionar_produto(produto: ProdutoCreate, db: Session = Depends(get_db)):
-    return ProdutoService.adicionar_produto(db, produto)
+def adicionar_produto(
+    nome: str = Form(...), 
+    preco: float = Form(...), 
+    categoria: str = Form(...),
+    file: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db)
+):
+    produto_data = ProdutoCreate(nome=nome, preco=preco, categoria=categoria)
+    
+    return ProdutoService.adicionar_produto(
+        db, 
+        produto_data,  
+        file
+    )
 
 @router.put("/{produto_id}", response_model=ProdutoResponse)
-def atualizar_produto(produto_id: int, produto: ProdutoCreate, db: Session = Depends(get_db)):
-    produto_atualizado = ProdutoService.atualizar_produto(db, produto_id, produto)
-    if not produto_atualizado:
-        raise HTTPException(status_code=404, detail="Produto não encontrado")
-    return produto_atualizado
+def atualizar_produto(
+    produto_id: int,
+    nome: str = Form(...), 
+    preco: float = Form(...), 
+    categoria: str = Form(...),
+    file: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db)
+):
+    produto_data = ProdutoCreate(nome=nome, preco=preco, categoria=categoria)
+    
+    return ProdutoService.atualizar_produto(
+        db, 
+        produto_id, 
+        produto_data,  
+        file
+    )
 
 @router.delete("/{produto_id}")
 def remover_produto(produto_id: int, db: Session = Depends(get_db)):

@@ -9,5 +9,6 @@ class Produto(Base):
     nome = Column(String, unique=True, nullable=False)
     preco = Column(Float, nullable=False)
     categoria = Column(String, nullable=False)
+    imagem = Column(String, nullable=True)
     promocoes = relationship("Promocao", back_populates="produto")
     comentarios = relationship("ComentarioProduto", back_populates="produto", cascade="all, delete-orphan")

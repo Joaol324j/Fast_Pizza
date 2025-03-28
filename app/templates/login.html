@@ -10,27 +10,30 @@
 </head>
 <body>
     <header>
-        <nav class="navbar-custom">
-            <a class="logo" href="./index.html">FastPizza</a>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
             <div class="mobile-menu">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Cadastro</a></li>
-                <li><a href="#">Cardápio</a></li>
-                <li><a href="#">Pedidos</a></li>
-                <li><a href="#">Promoções</a></li>
-            </ul>
-        </nav>
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="#">Cardápio</a></li>
+              <li><a href="#">Pedidos</a></li>
+              <li><a href="#">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
     </header>
+    
     <main>
         <div class="form-container">
             <h3>Login</h3>
-            <form action="#" method="POST">
+            <p id="error-msg" style="color: red; display: none;"></p>
+            <form id="login-form">
                 <div class="input-group">
                     <label for="username">Nome ou Email</label>
                     <input type="text" id="username" name="username" placeholder="Digite seu nome ou email" required>
@@ -46,5 +49,7 @@
         </div>
     </main>
     <script src="../static/mobile.js"></script>
+    <script src="../static/auth.js"></script>
+    <script src="../static/request.js"></script>
 </body>
 </html>

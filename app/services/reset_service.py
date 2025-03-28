@@ -14,7 +14,7 @@ class PasswordResetService:
             return {"msg": "Se o email existir, um link de recuperação será enviado"}
 
         reset_token = ResetTokenRepository.create(db, usuario.id)
-        link = f"http://localhost:8000/resetar-senha/{reset_token.token}"
+        link = f"http://localhost:8000/reset-password/{reset_token.token}"
         send_email(email, "Recuperação de Senha", f"Clique no link para redefinir sua senha: {link}")
 
         return {"msg": "Se o email existir, um link de recuperação será enviado"}

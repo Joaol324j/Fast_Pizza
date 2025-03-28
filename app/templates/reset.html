@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resetar a Senha</title>
+    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/form.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <ul class="nav-list">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Cadastro</a></li>
+                <li><a href="#">Cardápio</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Promoções</a></li>
+                <li><a href="/logout">Sair</a></li>
+            </ul>        
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h3>Nova Senha</h3>
+            <form id="reset-password-form">
+                <div class="input-group">
+                    <label for="password">Nova Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua nova senha" required>
+                </div>
+                <button type="submit" class="submit-btn">Resetar Senha</button>
+                <p id="error-msg" style="color: red; display: none;"></p>
+            </form>
+        </div>
+    </main>
+    <script src="../static/mobile.js"></script>
+    <script src="../static/request.js"></script>
+    <script src="../static/resetPassword.js"></script>
+    <div id="reset-token" data-token="{{ token }}"></div>
+</body>
+</html>

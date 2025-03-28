@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh; 
+    width: 100%;
+    background-color: #FF8C00;
+}
+
+.text {
+    flex: 1;
+    padding: 50px;
+    font-family: Arial, sans-serif; 
+}
+
+.text h1 {
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.text p {
+    font-size: 20px;
+    color: #fff;
+}
+
+.image {
+    flex: 1;
+    background: url("../static/images/pizza-pizza-filled-with-tomatoes-salami-olives.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100vh; 
+}

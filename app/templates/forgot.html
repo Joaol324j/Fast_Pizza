@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu a Senha?</title>
+    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/form.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="#">Cardápio</a></li>
+              <li><a href="#">Pedidos</a></li>
+              <li><a href="#">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h3>Esqueceu a Senha?</h3>
+            <form id="forgot-password-form">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu Email" required>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Solicitação</button>
+                <p id="error-msg" style="color: red; display: none;"></p>
+            </form>
+        </div>
+    </main>
+    <script src="../static/mobile.js"></script>
+    <script src="../static/request.js"></script>
+    <script src="../static/reset.js"></script>
+</body>
+</html>

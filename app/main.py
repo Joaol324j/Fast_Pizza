@@ -28,6 +28,10 @@ async def home(request: Request):
 async def home(request: Request):
     return templates.TemplateResponse("forgot.html", {"request": request})
 
+@app.get("/reset-password/{token}")
+async def home(request: Request, token: str):
+    return templates.TemplateResponse("reset.html", {"request": request, "token": token})
+
 app.include_router(menu_route.router)
 app.include_router(promotion_route.router)
 app.include_router(order_route.router)

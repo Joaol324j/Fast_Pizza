@@ -12,35 +12,33 @@
     <header>
         <nav>
             <a class="logo" href="/">FastPizza</a>
-            <div class="mobile-menu">
-              <div class="line1"></div>
-              <div class="line2"></div>
-              <div class="line3"></div>
-            </div>
             <ul class="nav-list">
-              <li><a href="/">Home</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Cadastro</a></li>
-              <li><a href="#">Cardápio</a></li>
-              <li><a href="#">Pedidos</a></li>
-              <li><a href="#">Promoções</a></li>
-              <li><a href="/logout">Sair</a></li>
-          </ul>        
-          </nav>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Cadastro</a></li>
+                <li><a href="#">Cardápio</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Promoções</a></li>
+                <li><a href="/logout">Sair</a></li>
+            </ul>        
+        </nav>
     </header>
     <main>
         <div class="form-container">
             <h3>Nova Senha</h3>
-            <form action="#" method="POST">
+            <form id="reset-password-form">
                 <div class="input-group">
-                    <label for="username">Nova Senha</label>
-                    <input type="text" id="password" name="password" placeholder="Digite sua Nova Senha" required>
+                    <label for="password">Nova Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua nova senha" required>
                 </div>
-                <button type="submit" class="submit-btn">Entrar</button>
+                <button type="submit" class="submit-btn">Resetar Senha</button>
+                <p id="error-msg" style="color: red; display: none;"></p>
             </form>
         </div>
     </main>
     <script src="../static/mobile.js"></script>
     <script src="../static/request.js"></script>
+    <script src="../static/resetPassword.js"></script>
+    <div id="reset-token" data-token="{{ token }}"></div>
 </body>
 </html>

@@ -31,16 +31,18 @@
     <main>
         <div class="form-container">
             <h3>Esqueceu a Senha?</h3>
-            <form action="#" method="POST">
+            <form id="forgot-password-form">
                 <div class="input-group">
-                    <label for="username">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Digite seu Email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu Email" required>
                 </div>
-                <button type="submit" class="submit-btn">Entrar</button>
+                <button type="submit" class="submit-btn">Enviar Solicitação</button>
+                <p id="error-msg" style="color: red; display: none;"></p>
             </form>
         </div>
     </main>
     <script src="../static/mobile.js"></script>
     <script src="../static/request.js"></script>
+    <script src="../static/reset.js"></script>
 </body>
 </html>

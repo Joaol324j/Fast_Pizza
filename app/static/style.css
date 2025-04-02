@@ -1,10 +1,13 @@
+body{
+    background-color: #000;
+}
+
 .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100vh; 
+    height: 90vh; 
     width: 100%;
-    background-color: #FF8C00;
 }
 
 .text {
@@ -24,9 +27,3 @@
     color: #fff;
 }
 
-.image {
-    flex: 1;
-    background: url("../static/images/pizza-pizza-filled-with-tomatoes-salami-olives.jpg") no-repeat center center;
-    background-size: cover;
-    height: 100vh; 
-}

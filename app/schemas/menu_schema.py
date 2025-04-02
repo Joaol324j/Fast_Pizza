@@ -4,7 +4,8 @@ from typing import Optional
 class ProdutoBase(BaseModel):
     nome: str
     preco: float
-    categoria: str 
+    categoria: str
+    descricao: str
 
 class ProdutoCreate(ProdutoBase):
     pass
@@ -14,6 +15,7 @@ class ProdutoResponse(ProdutoBase):
     nome: str
     preco: float
     categoria: str
+    descricao: str
     imagem: Optional[str] = None
 
     class Config:

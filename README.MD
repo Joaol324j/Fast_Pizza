@@ -1,23 +1,26 @@
 # Pizza API
 
-Uma API RESTful para gerenciamento de pedidos de pizza, desenvolvida com Python e FastAPI. O sistema inclui autenticação de usuários, gerenciamento de pedidos, menu de produtos, sistema de promoções e comentários.
+Uma API RESTful para gerenciamento de pedidos de pizza, desenvolvida com Python e FastAPI. O sistema oferece uma solução completa para pizzarias, incluindo autenticação de usuários, gerenciamento de pedidos, menu de produtos com suporte a imagens, sistema de promoções, comentários e recuperação de senha via email.
 
 ## 🚀 Tecnologias Utilizadas
 
 - Python 3.x
-- FastAPI
+- FastAPI (Framework web)
 - SQLAlchemy (ORM)
-- PostgreSQL
-- Docker & Docker Compose
+- PostgreSQL (Banco de dados)
+- Docker & Docker Compose (Containerização)
 - JWT (Autenticação)
-- Jinja2 (Templates)
+- Jinja2 (Templates HTML)
 - SMTP (Envio de emails)
+- Pydantic (Validação de dados)
+- OAuth2 (Autenticação)
 
 ## 📋 Pré-requisitos
 
 - Python 3.8 ou superior
 - Docker e Docker Compose
 - pip (gerenciador de pacotes Python)
+- Conta Gmail (para envio de emails)
 
 ## 🔧 Instalação
 
@@ -74,21 +77,53 @@ uvicorn app.main:app --reload
 ```
 pizza_API/
 ├── app/
-│   ├── configs/         # Configurações da aplicação
-│   ├── models/          # Modelos do banco de dados
+│   ├── configs/         # Configurações da aplicação (banco de dados, etc)
+│   ├── models/          # Modelos SQLAlchemy
 │   ├── repositories/    # Camada de acesso a dados
-│   ├── routes/          # Rotas da API
-│   ├── schemas/         # Schemas Pydantic
+│   ├── routes/          # Endpoints da API
+│   ├── schemas/         # Schemas Pydantic para validação
 │   ├── services/        # Lógica de negócios
-│   ├── static/          # Arquivos estáticos
-│   ├── templates/       # Templates HTML
-│   ├── utils/           # Utilitários
+│   ├── static/          # Arquivos estáticos (CSS, JS, imagens)
+│   ├── templates/       # Templates HTML (login, registro, etc)
+│   ├── utils/           # Utilitários (JWT, email, etc)
 │   └── main.py          # Ponto de entrada da aplicação
 ├── docker-compose.yml   # Configuração Docker Compose
 ├── Dockerfile          # Configuração Docker
 ├── requirements.txt    # Dependências
 └── README.md          # Este arquivo
 ```
+
+## 📚 Funcionalidades
+
+### Autenticação e Usuários
+- Cadastro de usuários com validação de email
+- Login com JWT (JSON Web Token)
+- Recuperação de senha via email
+- Proteção de rotas com autenticação OAuth2
+
+### Menu de Produtos
+- Cadastro de produtos com suporte a imagens
+- Categorização de produtos
+- Upload de imagens para produtos
+- Listagem e busca de produtos
+
+### Sistema de Promoções
+- Criação de promoções para produtos
+- Descontos percentuais e fixos
+- Aplicação automática de promoções em pedidos
+- Gerenciamento de promoções ativas
+
+### Pedidos
+- Criação de pedidos com múltiplos produtos
+- Cálculo automático de totais com promoções
+- Atualização de status de pedidos
+- Histórico de pedidos
+
+### Comentários e Avaliações
+- Comentários em produtos
+- Sistema de avaliação com notas
+- Moderação de comentários
+- Listagem de comentários por produto
 
 ## 📚 Endpoints da API
 
@@ -101,7 +136,7 @@ pizza_API/
 ### Produtos
 - `GET /produtos/` - Lista todos os produtos
 - `GET /produtos/{produto_id}` - Obtém um produto específico
-- `POST /produtos/` - Cria um novo produto
+- `POST /produtos/` - Cria um novo produto (com suporte a imagem)
 - `PUT /produtos/{produto_id}` - Atualiza um produto
 - `DELETE /produtos/{produto_id}` - Remove um produto
 
@@ -131,6 +166,14 @@ Para executar os testes:
 ```bash
 pytest
 ```
+
+## 🔒 Segurança
+
+- Autenticação JWT com tokens de acesso
+- Senhas criptografadas com bcrypt
+- Proteção contra injeção SQL via SQLAlchemy
+- Validação de dados com Pydantic
+- Recuperação de senha segura via email
 
 ## 👥 Contribuição
 

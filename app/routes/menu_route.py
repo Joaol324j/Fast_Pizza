@@ -5,7 +5,7 @@ from app.configs.db import get_db
 from app.services.menu_service import ProdutoService
 from app.schemas.menu_schema import ProdutoCreate, ProdutoResponse
 
-router = APIRouter(prefix="/produtos", tags=["Produtos"])
+router = APIRouter(prefix="/api/menu", tags=["Menu"])
 
 UPLOAD_DIR = "uploads/"
 
@@ -25,15 +25,21 @@ def adicionar_produto(
     nome: str = Form(...), 
     preco: float = Form(...), 
     categoria: str = Form(...),
-    file: Optional[UploadFile] = File(None),
+    descricao: str = Form(...),
+    imagem: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
-    produto_data = ProdutoCreate(nome=nome, preco=preco, categoria=categoria)
+    produto_data = ProdutoCreate(
+        nome=nome,
+        preco=preco,
+        categoria=categoria,
+        descricao=descricao
+    )
     
     return ProdutoService.adicionar_produto(
         db, 
         produto_data,  
-        file
+        imagem
     )
 
 @router.put("/{produto_id}", response_model=ProdutoResponse)
@@ -42,16 +48,22 @@ def atualizar_produto(
     nome: str = Form(...), 
     preco: float = Form(...), 
     categoria: str = Form(...),
-    file: Optional[UploadFile] = File(None),
+    descricao: str = Form(...),
+    imagem: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
-    produto_data = ProdutoCreate(nome=nome, preco=preco, categoria=categoria)
+    produto_data = ProdutoCreate(
+        nome=nome,
+        preco=preco,
+        categoria=categoria,
+        descricao=descricao
+    )
     
     return ProdutoService.atualizar_produto(
         db, 
         produto_id, 
         produto_data,  
-        file
+        imagem
     )
 
 @router.delete("/{produto_id}")

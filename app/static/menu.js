@@ -107,7 +107,7 @@ function addCardToContainer(item) {
     const card = document.createElement('div');
     card.className = 'card';
     
-    let imageUrl = '../static/images/default-pizza.jpg';
+    let imageUrl = '/static/images/default-pizza.jpg';
     if (item.imagem) {
         imageUrl = item.imagem.replace('uploads/', '/uploads/');
     }

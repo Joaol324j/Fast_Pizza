@@ -5,6 +5,8 @@ from app.routes import menu_route, promotion_route, order_route, comment_route, 
 from app.configs.db import Base, engine
 import os
 
+Base.metadata.create_all(bind=engine)
+
 os.makedirs("uploads", exist_ok=True)
 
 app = FastAPI(title="Pizza_API")

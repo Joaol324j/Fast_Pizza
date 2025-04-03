@@ -5,7 +5,7 @@ from app.configs.db import get_db
 from app.services.order_service import PedidoService
 from app.schemas.order_schema import PedidoCreate, PedidoResponse
 
-router = APIRouter(prefix="/pedidos", tags=["Pedidos"])
+router = APIRouter(prefix="/api/pedidos", tags=["Pedidos"])
 
 @router.post("/", response_model=PedidoResponse)
 def criar_pedido(pedido: PedidoCreate, db: Session = Depends(get_db)):

@@ -40,6 +40,10 @@ async def home(request: Request, token: str):
 async def menu(request: Request):
     return templates.TemplateResponse("menu.html", {"request": request})
 
+@app.get("/pedidos")
+async def pedidos(request: Request):
+    return templates.TemplateResponse("pedidos.html", {"request": request})
+
 app.include_router(menu_route.router)
 app.include_router(promotion_route.router)
 app.include_router(order_route.router)

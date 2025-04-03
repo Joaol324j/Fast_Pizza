@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Promoções</title>
+    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/promocoes.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="/menu">Cardápio</a></li>
+              <li><a href="/pedidos">Pedidos</a></li>
+              <li><a href="/promocoes">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
+    </header>
+
+    <div class="container">
+        <h1>Gerenciamento de Promoções</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="list-promotions">Listar Promoções</div>
+            <div class="tab" data-tab="add-promotion">Adicionar Promoção</div>
+        </div>
+        
+        <div class="tab-content active" id="list-promotions">
+            <div class="loading" id="loading-promotions">Carregando promoções...</div>
+            <div class="error" id="error-promotions"></div>
+            <table class="promotions-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Tipo de Desconto</th>
+                        <th>Valor do Desconto</th>
+                        <th>Produto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="promotions-table-body">
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-content" id="add-promotion">
+            <div class="loading" id="loading-promotion">Processando...</div>
+            <div class="error" id="error-promotion"></div>
+            <div class="success" id="success-promotion"></div>
+            
+            <form id="promotion-form">
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" name="descricao" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipo_desconto">Tipo de Desconto:</label>
+                    <select id="tipo_desconto" name="tipo_desconto" required>
+                        <option value="">Selecione o tipo de desconto</option>
+                        <option value="percentual">Percentual</option>
+                        <option value="fixo">Valor Fixo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valor_desconto">Valor do Desconto:</label>
+                    <input type="number" id="valor_desconto" name="valor_desconto" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="produto_id">Produto (opcional):</label>
+                    <select id="produto_id" name="produto_id">
+                        <option value="">Selecione um produto</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Adicionar Promoção</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Promoção</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="error" id="error-edit"></div>
+                <div class="success" id="success-edit"></div>
+                <div class="loading" id="loading-edit">Processando...</div>
+                
+                <form id="edit-form">
+                    <input type="hidden" id="edit-promotion-id">
+                    
+                    <div class="form-group">
+                        <label for="edit-descricao">Descrição:</label>
+                        <input type="text" id="edit-descricao" name="descricao" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-tipo_desconto">Tipo de Desconto:</label>
+                        <select id="edit-tipo_desconto" name="tipo_desconto" required>
+                            <option value="">Selecione o tipo de desconto</option>
+                            <option value="percentual">Percentual</option>
+                            <option value="fixo">Valor Fixo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-valor_desconto">Valor do Desconto:</label>
+                        <input type="number" id="edit-valor_desconto" name="valor_desconto" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-produto_id">Produto (opcional):</label>
+                        <select id="edit-produto_id" name="produto_id">
+                            <option value="">Selecione um produto</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-edit" class="cancel-btn">Cancelar</button>
+                <button id="save-edit" class="save-btn">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/mobile.js"></script>
+    <script src="../static/request.js"></script>
+    <script src="../static/promocoes.js"></script>
+</body>
+</html> 

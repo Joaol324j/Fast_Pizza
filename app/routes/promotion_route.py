@@ -5,7 +5,7 @@ from app.configs.db import get_db
 from app.services.promotion_service import PromocaoService
 from app.schemas.promotion_schema import PromocaoCreate, PromocaoResponse
 
-router = APIRouter(prefix="/promocoes", tags=["Promoções"])
+router = APIRouter(prefix="/api/promocoes", tags=["Promoções"])
 
 @router.get("/", response_model=List[PromocaoResponse])
 def listar_promocoes(db: Session = Depends(get_db)):

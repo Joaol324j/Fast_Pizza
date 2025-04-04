@@ -14,26 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     newPromotionBtn.addEventListener('click', function() {
         console.log('Botão de nova promoção clicado');
-        newPromotionModal.style.display = 'block';
+        newPromotionModal.classList.add('active');
         loadProducts();
     });
     
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
             console.log('Botão de fechar clicado');
-            newPromotionModal.style.display = 'none';
+            newPromotionModal.classList.remove('active');
             if (editModal) {
-                editModal.style.display = 'none';
+                editModal.classList.remove('active');
             }
         });
     });
     
     window.addEventListener('click', function(event) {
         if (event.target === newPromotionModal) {
-            newPromotionModal.style.display = 'none';
+            newPromotionModal.classList.remove('active');
         }
         if (event.target === editModal) {
-            editModal.style.display = 'none';
+            editModal.classList.remove('active');
         }
     });
     
@@ -50,15 +50,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Produtos carregados:', products);
             
             const productSelects = document.querySelectorAll('#produto_id, #editProdutoId');
-            productSelects.forEach(select => {
-                select.innerHTML = '<option value="">Selecione um produto</option>';
+        productSelects.forEach(select => {
+            select.innerHTML = '<option value="">Selecione um produto</option>';
                 products.forEach(product => {
-                    const option = document.createElement('option');
+                const option = document.createElement('option');
                     option.value = product.id;
                     option.textContent = product.nome;
-                    select.appendChild(option);
-                });
+                select.appendChild(option);
             });
+        });
         } catch (error) {
             console.error('Erro ao carregar produtos:', error);
             alert('Erro ao carregar produtos. Por favor, tente novamente.');
@@ -80,10 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 const response = await fetch('/api/promocoes/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                     body: JSON.stringify(formData)
                 });
                 
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 console.log('Promoção criada com sucesso:', data);
                 
-                newPromotionModal.style.display = 'none';
+                newPromotionModal.classList.remove('active');
                 newPromotionForm.reset();
                 loadPromotions();
             } catch (error) {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('editValorDesconto').value = promotion.valor_desconto;
             document.getElementById('editProdutoId').value = promotion.produto_id || '';
             
-            editModal.style.display = 'block';
+            editModal.classList.add('active');
         } catch (error) {
             console.error('Erro ao carregar promoção:', error);
             alert('Erro ao carregar promoção. Por favor, tente novamente.');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 console.log('Promoção atualizada com sucesso:', data);
                 
-                editModal.style.display = 'none';
+                editModal.classList.remove('active');
                 loadPromotions();
             } catch (error) {
                 console.error('Erro:', error);

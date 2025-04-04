@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeButtons = document.querySelectorAll('.close');
     const ordersTableBody = document.getElementById('ordersTableBody');
     
+    console.log('Elementos encontrados:', {
+        newOrderBtn: !!newOrderBtn,
+        newOrderModal: !!newOrderModal,
+        editModal: !!editModal,
+        closeButtons: closeButtons.length,
+        ordersTableBody: !!ordersTableBody
+    });
+    
     if (!newOrderBtn) {
         console.error('Botão de novo pedido não encontrado');
         return;
@@ -24,16 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     newOrderBtn.addEventListener('click', function() {
         console.log('Botão de novo pedido clicado');
-        newOrderModal.style.display = 'block';
+        newOrderModal.classList.add('active');
         loadMenuItems();
     });
     
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
             console.log('Botão de fechar clicado');
-            newOrderModal.style.display = 'none';
+            newOrderModal.classList.remove('active');
             if (editModal) {
-                editModal.style.display = 'none';
+                editModal.classList.remove('active');
             }
         });
     });
@@ -41,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         if (event.target === newOrderModal) {
             console.log('Clicou fora do modal');
-            newOrderModal.style.display = 'none';
+            newOrderModal.classList.remove('active');
         }
         if (event.target === editModal) {
             console.log('Clicou fora do modal de edição');
-            editModal.style.display = 'none';
+            editModal.classList.remove('active');
         }
     });
     
@@ -127,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 console.log('Pedido criado com sucesso:', data);
                 
-                newOrderModal.style.display = 'none';
+                newOrderModal.classList.remove('active');
                 loadOrders();
             } catch (error) {
                 console.error('Erro:', error);
@@ -211,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('editOrderId').value = order.id;
             document.getElementById('editStatus').value = order.status;
             
-            editModal.style.display = 'block';
+            editModal.classList.add('active');
         } catch (error) {
             console.error('Erro ao carregar pedido:', error);
             alert('Erro ao carregar pedido. Por favor, tente novamente.');
@@ -268,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const editModal = document.getElementById('editModal');
                 if (editModal) {
-                    editModal.style.display = 'none';
+                    editModal.classList.remove('active');
                 }
                 
                 loadOrders();

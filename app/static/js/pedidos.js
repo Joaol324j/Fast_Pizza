@@ -4,15 +4,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const newOrderBtn = document.getElementById('newOrderBtn');
     const newOrderModal = document.getElementById('newOrderModal');
     const editModal = document.getElementById('editModal');
+    const deleteModal = document.getElementById('deleteModal');
     const closeButtons = document.querySelectorAll('.close');
     const ordersTableBody = document.getElementById('ordersTableBody');
+    const confirmDeleteBtn = document.getElementById('confirmDelete');
+    const cancelDeleteBtn = document.getElementById('cancelDelete');
     
     console.log('Elementos encontrados:', {
         newOrderBtn: !!newOrderBtn,
         newOrderModal: !!newOrderModal,
         editModal: !!editModal,
+        deleteModal: !!deleteModal,
         closeButtons: closeButtons.length,
-        ordersTableBody: !!ordersTableBody
+        ordersTableBody: !!ordersTableBody,
+        confirmDeleteBtn: !!confirmDeleteBtn,
+        cancelDeleteBtn: !!cancelDeleteBtn
     });
     
     if (!newOrderBtn) {
@@ -40,9 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             console.log('Botão de fechar clicado');
             newOrderModal.classList.remove('active');
-            if (editModal) {
-                editModal.classList.remove('active');
-            }
+            editModal.classList.remove('active');
+            deleteModal.classList.remove('active');
         });
     });
     
@@ -54,6 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target === editModal) {
             console.log('Clicou fora do modal de edição');
             editModal.classList.remove('active');
+        }
+        if (event.target === deleteModal) {
+            console.log('Clicou fora do modal de exclusão');
+            deleteModal.classList.remove('active');
         }
     });
     
@@ -226,25 +235,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    window.deleteOrder = async function(orderId) {
-        if (confirm('Tem certeza que deseja excluir este pedido?')) {
-            try {
-                console.log('Excluindo pedido:', orderId);
-                const response = await fetch(`/api/pedidos/${orderId}`, {
-                    method: 'DELETE'
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao excluir pedido');
-                }
-                
-                loadOrders();
-            } catch (error) {
-                console.error('Erro ao excluir pedido:', error);
-                alert('Erro ao excluir pedido. Por favor, tente novamente.');
-            }
-        }
+    let orderToDelete = null;
+
+    window.deleteOrder = function(id) {
+        console.log('Iniciando exclusão do pedido:', id);
+        orderToDelete = id;
+        deleteModal.classList.add('active');
     };
+
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', async function() {
+            console.log('Confirmando exclusão do pedido:', orderToDelete);
+            if (orderToDelete) {
+                try {
+                    const response = await fetch(`/api/pedidos/${orderToDelete}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro ao excluir pedido');
+                    }
+
+                    console.log('Pedido excluído com sucesso');
+                    deleteModal.classList.remove('active');
+                    loadOrders();
+                    orderToDelete = null;
+                } catch (error) {
+                    console.error('Erro ao excluir pedido:', error);
+                    alert('Erro ao excluir pedido. Por favor, tente novamente.');
+                }
+            }
+        });
+    }
+
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', function() {
+            console.log('Cancelando exclusão');
+            deleteModal.classList.remove('active');
+            orderToDelete = null;
+        });
+    }
     
     const editOrderForm = document.getElementById('editOrderForm');
     if (editOrderForm) {

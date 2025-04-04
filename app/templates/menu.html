@@ -7,250 +7,6 @@
     <link rel="stylesheet" href="../static/css/navbar.css">
     <link rel="stylesheet" href="../static/css/menu.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-
-    body {
-        display: flex;
-        flex-direction: column;
-        background-color: #f5f5f5;
-        color: #333;
-        font-family: 'Arial', sans-serif;
-        padding-top: 10vh;
-    }
-
-    main {
-        flex: 1 0 auto;
-        min-height: calc(100vh - 10vh - 300px);
-    }
-
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
-        padding: 40px;
-        justify-content: center;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .card {
-        border: none;
-        border-radius: 15px;
-        padding: 20px;
-        width: 300px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-        color: #333;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 15px;
-    }
-
-    .card h3 {
-        margin: 0 0 10px 0;
-        color: #8B0000;
-        font-size: 1.5em;
-    }
-
-    .card p {
-        margin: 5px 0;
-        flex-grow: 1;
-        color: #666;
-    }
-
-    .card-price {
-        font-size: 1.2em;
-        font-weight: bold;
-        color: #8B0000;
-        margin: 10px 0;
-    }
-
-    .card-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
-    }
-
-    .edit-btn, .delete-btn {
-        padding: 8px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    .edit-btn {
-        background-color: #8B0000;
-        color: white;
-    }
-
-    .edit-btn:hover {
-        background-color: #6B0000;
-    }
-
-    .delete-btn {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    .delete-btn:hover {
-        background-color: #c82333;
-    }
-
-    .add-item-btn {
-        display: block;
-        margin: 30px auto;
-        padding: 12px 25px;
-        background-color: #8B0000;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-    .add-item-btn:hover {
-        background-color: #6B0000;
-        transform: translateY(-2px);
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 30px;
-        border-radius: 10px;
-        width: 50%;
-        max-width: 600px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .close {
-        color: #666;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-
-    .close:hover {
-        color: #333;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-sizing: border-box;
-        background-color: #fff;
-        color: #333;
-        transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-        border-color: #8B0000;
-        outline: none;
-    }
-
-    .form-group option {
-        color: #333;
-    }
-
-    .image-preview {
-        max-width: 200px;
-        max-height: 200px;
-        margin-top: 10px;
-        display: none;
-        border-radius: 5px;
-    }
-
-    .form-submit {
-        background-color: #8B0000;
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-    .form-submit:hover {
-        background-color: #6B0000;
-    }
-
-    .error-message {
-        color: #dc3545;
-        margin-bottom: 15px;
-        padding: 10px;
-        background-color: #f8d7da;
-        border-radius: 5px;
-        display: none;
-    }
-
-    .loading {
-        text-align: center;
-        padding: 15px;
-        color: #666;
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        .card-container {
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .modal-content {
-            width: 90%;
-            padding: 20px;
-        }
-    }
-    </style>
 </head>
 <body>
     <header>
@@ -276,62 +32,95 @@
     <main>
         <h1 class="menu-title">Cardápio</h1>
         <button id="addItemBtn" class="add-item-btn">Adicionar Item</button>
-
-        <div id="itemModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Adicionar Novo Item</h2>
-                <form id="itemForm">
-                    <div class="form-group">
-                        <label for="itemName">Nome do Item:</label>
-                        <input type="text" id="itemName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemDescription">Descrição:</label>
-                        <textarea id="itemDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemPrice">Preço:</label>
-                        <input type="number" id="itemPrice" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemCategory">Categoria:</label>
-                        <select id="itemCategory" required>
-                            <option value="">Selecione uma categoria</option>
-                            <option value="pizza">Pizza</option>
-                            <option value="bebida">Bebida</option>
-                            <option value="sobremesa">Sobremesa</option>
-                            <option value="acompanhamento">Acompanhamento</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemImage">Imagem:</label>
-                        <input type="file" id="itemImage" accept="image/*">
-                        <img id="imagePreview" class="image-preview" alt="Preview da imagem">
-                    </div>
-                    <div id="errorMessage" class="error-message"></div>
-                    <div id="loadingIndicator" class="loading"></div>
-                    <button type="submit" class="form-submit">Adicionar</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="cardContainer" class="card-container">
-           
-        </div>
-
-        <div id="deleteModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Confirmar Exclusão</h2>
-                <p>Tem certeza que deseja excluir este item do cardápio?</p>
-                <div class="modal-buttons">
-                    <button id="confirmDelete" class="btn-delete">Excluir</button>
-                    <button id="cancelDelete" class="btn-cancel">Cancelar</button>
-                </div>
-            </div>
+        <div id="cardContainer" class="items-grid">
         </div>
     </main>
+
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar Novo Item</h2>
+            <div id="errorMessage" class="error-message"></div>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label for="itemName">Nome</label>
+                    <input type="text" id="itemName" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Descrição</label>
+                    <textarea id="itemDescription" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemPrice">Preço</label>
+                    <input type="number" id="itemPrice" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemCategory">Categoria</label>
+                    <select id="itemCategory" name="categoria" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="bebida">Bebida</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="itemImage">Imagem</label>
+                    <input type="file" id="itemImage" name="imagem" accept="image/*">
+                    <img id="imagePreview" class="image-preview" alt="Preview">
+                </div>
+                <div id="loadingIndicator" class="loading">Carregando...</div>
+                <button type="submit" class="form-submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Item</h2>
+            <div id="editErrorMessage" class="error-message"></div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editItemName">Nome</label>
+                    <input type="text" id="editItemName" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemDescription">Descrição</label>
+                    <textarea id="editItemDescription" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editItemPrice">Preço</label>
+                    <input type="number" id="editItemPrice" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemCategory">Categoria</label>
+                    <select id="editItemCategory" name="categoria" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="bebida">Bebida</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editItemImage">Imagem</label>
+                    <input type="file" id="editItemImage" name="imagem" accept="image/*">
+                    <img id="editImagePreview" class="image-preview" alt="Preview">
+                </div>
+                <button type="submit" class="form-submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este item?</p>
+            <div class="modal-actions">
+                <button id="cancelDelete" class="btn-cancel">Cancelar</button>
+                <button id="confirmDelete" class="btn-delete">Excluir</button>
+            </div>
+        </div>
+    </div>
 
     <script src="../static/js/mobile.js"></script>
     <script src="../static/js/request.js"></script>

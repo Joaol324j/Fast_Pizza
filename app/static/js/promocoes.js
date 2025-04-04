@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const newPromotionBtn = document.getElementById('newPromotionBtn');
     const newPromotionModal = document.getElementById('newPromotionModal');
     const editModal = document.getElementById('editModal');
+    const deleteModal = document.getElementById('deleteModal');
     const closeButtons = document.querySelectorAll('.close');
     const promotionsTableBody = document.getElementById('promotionsTableBody');
+    const confirmDeleteBtn = document.getElementById('confirmDelete');
+    const cancelDeleteBtn = document.getElementById('cancelDelete');
     
     if (!newPromotionBtn || !newPromotionModal || !promotionsTableBody) {
         console.error('Elementos necessários não encontrados');
@@ -22,9 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             console.log('Botão de fechar clicado');
             newPromotionModal.classList.remove('active');
-            if (editModal) {
-                editModal.classList.remove('active');
-            }
+            editModal.classList.remove('active');
+            deleteModal.classList.remove('active');
         });
     });
     
@@ -34,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (event.target === editModal) {
             editModal.classList.remove('active');
+        }
+        if (event.target === deleteModal) {
+            deleteModal.classList.remove('active');
         }
     });
     
@@ -184,25 +189,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    window.deletePromotion = async function(promotionId) {
-        if (confirm('Tem certeza que deseja excluir esta promoção?')) {
-            try {
-                const response = await fetch(`/api/promocoes/${promotionId}`, {
-                    method: 'DELETE'
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao excluir promoção');
-                }
-                
-                console.log('Promoção excluída com sucesso');
-                loadPromotions();
-            } catch (error) {
-                console.error('Erro ao excluir promoção:', error);
-                alert('Erro ao excluir promoção. Por favor, tente novamente.');
-            }
-        }
+    let promotionToDelete = null;
+
+    window.deletePromotion = function(id) {
+        console.log('Iniciando exclusão da promoção:', id);
+        promotionToDelete = id;
+        deleteModal.classList.add('active');
     };
+
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', async function() {
+            console.log('Confirmando exclusão da promoção:', promotionToDelete);
+            if (promotionToDelete) {
+                try {
+                    const response = await fetch(`/api/promocoes/${promotionToDelete}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro ao excluir promoção');
+                    }
+
+                    console.log('Promoção excluída com sucesso');
+                    deleteModal.classList.remove('active');
+                    loadPromotions();
+                    promotionToDelete = null;
+                } catch (error) {
+                    console.error('Erro ao excluir promoção:', error);
+                    alert('Erro ao excluir promoção. Por favor, tente novamente.');
+                }
+            }
+        });
+    }
+
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', function() {
+            console.log('Cancelando exclusão');
+            deleteModal.classList.remove('active');
+            promotionToDelete = null;
+        });
+    }
     
     const editPromotionForm = document.getElementById('editPromotionForm');
     if (editPromotionForm) {

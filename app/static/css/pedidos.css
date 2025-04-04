@@ -228,6 +228,70 @@ main {
 
 .modal.active .modal-content {
     transform: translateY(0);
+    opacity: 1;
+}
+
+#deleteModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+#deleteModal h2 {
+    color: #8B0000;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+#deleteModal p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#cancelDelete,
+#confirmDelete {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    letter-spacing: 0.5px;
+}
+
+#cancelDelete {
+    background-color: #e9ecef;
+    color: #495057;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#cancelDelete:hover {
+    background-color: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#confirmDelete {
+    background-color: #8B0000;
+    color: white;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+}
+
+#confirmDelete:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
 }
 
 @media (max-width: 992px) {

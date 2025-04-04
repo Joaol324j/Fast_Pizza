@@ -9,6 +9,9 @@ class PedidoProdutoCreate(BaseModel):
 class PedidoCreate(BaseModel):
     produtos: List[PedidoProdutoCreate]
 
+class StatusUpdate(BaseModel):
+    status: str
+
 class PedidoResponse(BaseModel):
     id: int
     status: str

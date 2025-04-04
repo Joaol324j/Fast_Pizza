@@ -41,7 +41,7 @@ async def read_login(request: Request):
 async def read_register(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
-@app.get("/forgot", response_class=HTMLResponse)
+@app.get("/forgot-password", response_class=HTMLResponse)
 async def read_forgot(request: Request):
     return templates.TemplateResponse("forgot.html", {"request": request})
 

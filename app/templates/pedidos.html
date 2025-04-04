@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos</title>
-    <link rel="stylesheet" href="../static/navbar.css">
-    <link rel="stylesheet" href="../static/pedidos.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/pedidos.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -29,99 +29,68 @@
           </nav>
     </header>
 
-    <div class="container">
-        <h1>Gerenciar Pedidos</h1>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="list-orders">Listar Pedidos</div>
-            <div class="tab" data-tab="new-order">Novo Pedido</div>
+    <main>
+        <h1 class="pedidos-title">Pedidos</h1>
+        <button id="newOrderBtn" class="new-order-btn">Novo Pedido</button>
+
+        <div id="newOrderModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Novo Pedido</h2>
+                <form id="newOrderForm">
+                    <div class="form-group">
+                        <label for="items">Itens do Pedido:</label>
+                        <select id="items" name="items" multiple required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalAmount">Valor Total:</label>
+                        <input type="number" id="totalAmount" name="total_amount" step="0.01" readonly>
+                    </div>
+                    <div id="errorMessage" class="error-message"></div>
+                    <button type="submit" class="form-submit">Criar Pedido</button>
+                </form>
+            </div>
         </div>
 
-        <div id="list-orders" class="tab-content active">
-            <div id="loading-orders" class="loading" style="display: none;">Carregando pedidos...</div>
-            <div id="error-orders" class="alert alert-danger" style="display: none;"></div>
-            
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Editar Status do Pedido</h2>
+                <div id="editErrorMessage" class="error-message"></div>
+                <form id="editOrderForm">
+                    <input type="hidden" id="editOrderId">
+                    <div class="form-group">
+                        <label for="editStatus">Status:</label>
+                        <select id="editStatus" name="status" required>
+                            <option value="pendente">Pendente</option>
+                            <option value="em_preparo">Em Preparo</option>
+                            <option value="pronto">Pronto</option>
+                            <option value="entregue">Entregue</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-submit">Atualizar Status</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-container">
             <table class="orders-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Data</th>
-                        <th>Status</th>
                         <th>Total</th>
+                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="orders-table-body">
+                <tbody id="ordersTableBody">
                 </tbody>
             </table>
         </div>
+    </main>
 
-        <div id="new-order" class="tab-content">
-            <form id="order-form" class="order-form">
-                <div id="error-order" class="alert alert-danger" style="display: none;"></div>
-                <div id="success-order" class="alert alert-success" style="display: none;"></div>
-                <div id="loading-order" class="loading" style="display: none;">Criando pedido...</div>
-
-                <div class="form-group">
-                    <label>Produtos</label>
-                    <div id="product-list">
-                    </div>
-                    <button type="button" id="add-product-btn" class="btn btn-secondary">
-                        Adicionar Produto
-                    </button>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Criar Pedido</button>
-                    <button type="reset" class="btn btn-secondary">Limpar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Editar Pedido</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="error-edit" class="alert alert-danger" style="display: none;"></div>
-                <div id="success-edit" class="alert alert-success" style="display: none;"></div>
-                <div id="loading-edit" class="loading" style="display: none;">Atualizando pedido...</div>
-                
-                <form id="edit-form">
-                    <input type="hidden" id="edit-order-id">
-                    
-                    <div class="form-group">
-                        <label for="edit-status">Status do Pedido</label>
-                        <select id="edit-status" name="status" class="form-control" required>
-                            <option value="pendente">Pendente</option>
-                            <option value="em-preparo">Em Preparo</option>
-                            <option value="concluido">Concluído</option>
-                            <option value="cancelado">Cancelado</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Produtos</label>
-                        <div id="edit-product-list">
-                        </div>
-                        <button type="button" id="add-edit-product-btn" class="btn btn-secondary">
-                            Adicionar Produto
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancel-edit">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="save-edit">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="../static/mobile.js"></script>
-    <script src="../static/request.js"></script>
-    <script src="../static/pedidos.js"></script>
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/pedidos.js"></script>
 </body>
 </html> 

@@ -146,4 +146,62 @@ async function deleteItem(id) {
             console.error('Erro ao excluir item:', error);
         }
     }
-} 
+}
+
+const deleteModal = document.getElementById('deleteModal');
+const confirmDeleteBtn = document.getElementById('confirmDelete');
+const cancelDeleteBtn = document.getElementById('cancelDelete');
+let itemToDelete = null;
+
+function openDeleteModal(itemId) {
+    itemToDelete = itemId;
+    deleteModal.style.display = 'block';
+}
+
+function closeDeleteModal() {
+    deleteModal.style.display = 'none';
+    itemToDelete = null;
+}
+
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const itemId = e.target.closest('.card').dataset.itemId;
+        openDeleteModal(itemId);
+    });
+});
+
+confirmDeleteBtn.addEventListener('click', async () => {
+    if (itemToDelete) {
+        try {
+            const response = await fetch(`/api/menu/${itemToDelete}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Remover o card do DOM
+                const cardToRemove = document.querySelector(`.card[data-item-id="${itemToDelete}"]`);
+                if (cardToRemove) {
+                    cardToRemove.remove();
+                }
+                closeDeleteModal();
+            } else {
+                console.error('Erro ao excluir item');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    }
+});
+
+cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+
+deleteModal.querySelector('.close').addEventListener('click', closeDeleteModal);
+
+window.addEventListener('click', (e) => {
+    if (e.target === deleteModal) {
+        closeDeleteModal();
+    }
+}); 

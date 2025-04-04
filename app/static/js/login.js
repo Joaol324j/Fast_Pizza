@@ -1,47 +1,53 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("login-form");
-    if (!form) {
-        console.error("Erro: Formulário de login não encontrado");
-        return;
-    }
+    const loginForm = document.getElementById("login-form");
+    const errorMsg = document.getElementById("error-msg");
 
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const usernameOrEmail = document.getElementById("username")?.value;
-        const password = document.getElementById("password")?.value;
-        const errorMsg = document.getElementById("errorMsg");
-
-        if (!usernameOrEmail || !password) {
-            console.error("Erro: Campos de login não encontrados!");
-            return;
-        }
-
-        try {
-            const formData = new URLSearchParams();
-            formData.append("username_or_email", usernameOrEmail);
-            formData.append("password", password);
-
-            const response = await fetch(`/user/login/?${formData.toString()}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            try {
+                const formData = new URLSearchParams();
+                formData.append("username", username);
+                formData.append("password", password);
+                
+                const response = await fetch("/api/users/login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || "Erro ao fazer login");
                 }
-            });
-
-            if (!response.ok) {
-                throw new Error("Credenciais inválidas. Verifique seu usuário e senha.");
+                
+                const data = await response.json();
+                console.log("Login bem sucedido:", data);
+                
+                localStorage.setItem("token", data.access_token);
+                
+                const params = new URLSearchParams(window.location.search);
+                const redirectUrl = params.get("redirect");
+                
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                } else {
+                    window.location.href = "/";
+                }
+                
+            } catch (error) {
+                console.error("Erro no login:", error);
+                if (errorMsg) {
+                    errorMsg.textContent = error.message;
+                    errorMsg.style.display = "block";
+                }
             }
-
-            const data = await response.json();
-
-            localStorage.setItem("token", data.access_token);
-            console.log("Token salvo com sucesso:", localStorage.getItem("token"));
-
-            window.location.href = "/";
-        } catch (error) {
-            errorMsg.textContent = error.message;
-            errorMsg.style.display = "block";
-        }
-    });
+        });
+    }
 });

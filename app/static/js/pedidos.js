@@ -126,17 +126,33 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Dados do pedido:', { produtos });
             
             try {
+                const token = localStorage.getItem('token');
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                    console.log('Token adicionado explicitamente à requisição de criação');
+                } else {
+                    console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                }
+                
                 const response = await fetch('/api/pedidos/', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: headers,
                     body: JSON.stringify({ produtos })
                 });
                 
                 console.log('Resposta do servidor:', response.status);
                 
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        console.error('Erro de autenticação. Redirecionando para login...');
+                        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                        return;
+                    }
+                    
                     const error = await response.json();
                     throw new Error(error.detail || 'Erro ao criar pedido');
                 }
@@ -248,11 +264,27 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Confirmando exclusão do pedido:', orderToDelete);
             if (orderToDelete) {
                 try {
+                    const token = localStorage.getItem('token');
+                    const headers = {};
+                    
+                    if (token) {
+                        headers['Authorization'] = `Bearer ${token}`;
+                        console.log('Token adicionado explicitamente à requisição de exclusão');
+                    } else {
+                        console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                    }
+                    
                     const response = await fetch(`/api/pedidos/${orderToDelete}`, {
-                        method: 'DELETE'
+                        method: 'DELETE',
+                        headers: headers
                     });
 
                     if (!response.ok) {
+                        if (response.status === 401) {
+                            console.error('Erro de autenticação. Redirecionando para login...');
+                            window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                            return;
+                        }
                         throw new Error('Erro ao excluir pedido');
                     }
 
@@ -284,19 +316,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const orderId = document.getElementById('editOrderId').value;
             const novoStatus = document.getElementById('editStatus').value;
+            const token = localStorage.getItem('token');
 
             try {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                    console.log('Token adicionado explicitamente à requisição de atualização de status');
+                } else {
+                    console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                }
+
                 const response = await fetch(`/api/pedidos/${orderId}/status`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: headers,
                     body: JSON.stringify({ status: novoStatus })
                 });
 
                 console.log('Resposta do servidor:', response.status);
 
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        console.error('Erro de autenticação. Redirecionando para login...');
+                        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                        return;
+                    }
+                    
                     const error = await response.json();
                     throw new Error(error.detail || 'Erro ao atualizar status');
                 }

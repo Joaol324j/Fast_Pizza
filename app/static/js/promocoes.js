@@ -84,15 +84,31 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             try {
-                const response = await fetch('/api/promocoes/', {
-                method: 'POST',
-                headers: {
+                const token = localStorage.getItem('token');
+                const headers = {
                     'Content-Type': 'application/json'
-                },
+                };
+                
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                    console.log('Token adicionado explicitamente à requisição de criação de promoção');
+                } else {
+                    console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                }
+                
+                const response = await fetch('/api/promocoes/', {
+                    method: 'POST',
+                    headers: headers,
                     body: JSON.stringify(formData)
                 });
                 
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        console.error('Erro de autenticação. Redirecionando para login...');
+                        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                        return;
+                    }
+                    
                     const error = await response.json();
                     throw new Error(error.detail || 'Erro ao criar promoção');
                 }
@@ -202,11 +218,27 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Confirmando exclusão da promoção:', promotionToDelete);
             if (promotionToDelete) {
                 try {
+                    const token = localStorage.getItem('token');
+                    const headers = {};
+                    
+                    if (token) {
+                        headers['Authorization'] = `Bearer ${token}`;
+                        console.log('Token adicionado explicitamente à requisição de exclusão de promoção');
+                    } else {
+                        console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                    }
+                    
                     const response = await fetch(`/api/promocoes/${promotionToDelete}`, {
-                        method: 'DELETE'
+                        method: 'DELETE',
+                        headers: headers
                     });
 
                     if (!response.ok) {
+                        if (response.status === 401) {
+                            console.error('Erro de autenticação. Redirecionando para login...');
+                            window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                            return;
+                        }
                         throw new Error('Erro ao excluir promoção');
                     }
 
@@ -245,15 +277,31 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             try {
+                const token = localStorage.getItem('token');
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                    console.log('Token adicionado explicitamente à requisição de atualização de promoção');
+                } else {
+                    console.warn('Token não encontrado, requisição pode falhar por falta de autorização');
+                }
+                
                 const response = await fetch(`/api/promocoes/${promotionId}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: headers,
                     body: JSON.stringify(formData)
                 });
                 
                 if (!response.ok) {
+                    if (response.status === 401) {
+                        console.error('Erro de autenticação. Redirecionando para login...');
+                        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+                        return;
+                    }
+                    
                     const error = await response.json();
                     throw new Error(error.detail || 'Erro ao atualizar promoção');
                 }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoções</title>
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/promocoes.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="/menu">Cardápio</a></li>
+              <li><a href="/pedidos">Pedidos</a></li>
+              <li><a href="/promocoes">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
+    </header>
+
+    <main>
+        <h1 class="promocoes-title">Promoções</h1>
+        
+        <button id="newPromotionBtn" class="new-promotion-btn">Nova Promoção</button>
+        
+        <div class="table-container">
+            <table class="promotions-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Produto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="promotionsTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="newPromotionModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Nova Promoção</h2>
+                <div id="errorMessage" class="error-message"></div>
+                <form id="newPromotionForm">
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <input type="text" id="descricao" name="descricao" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_desconto">Tipo de Desconto:</label>
+                        <select id="tipo_desconto" name="tipo_desconto" required>
+                            <option value="percentual">Percentual</option>
+                            <option value="fixo">Fixo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="valor_desconto">Valor do Desconto:</label>
+                        <input type="number" id="valor_desconto" name="valor_desconto" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="produto_id">Produto:</label>
+                        <select id="produto_id" name="produto_id">
+                            <option value="">Selecione um produto</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-submit">Criar Promoção</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Editar Promoção</h2>
+                <div id="editErrorMessage" class="error-message"></div>
+                <form id="editPromotionForm">
+                    <input type="hidden" id="editPromotionId">
+                    <div class="form-group">
+                        <label for="editDescricao">Descrição:</label>
+                        <input type="text" id="editDescricao" name="descricao" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTipoDesconto">Tipo de Desconto:</label>
+                        <select id="editTipoDesconto" name="tipo_desconto" required>
+                            <option value="percentual">Percentual</option>
+                            <option value="fixo">Fixo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editValorDesconto">Valor do Desconto:</label>
+                        <input type="number" id="editValorDesconto" name="valor_desconto" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProdutoId">Produto:</label>
+                        <select id="editProdutoId" name="produto_id">
+                            <option value="">Selecione um produto</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-submit">Atualizar Promoção</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Confirmar Exclusão</h2>
+                <p>Tem certeza que deseja excluir esta promoção?</p>
+                <div class="modal-actions">
+                    <button id="cancelDelete" class="btn-cancel">Cancelar</button>
+                    <button id="confirmDelete" class="btn-delete">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/promocoes.js"></script>
+    <script src="../static/js/auth.js"></script>
+</body>
+</html> 

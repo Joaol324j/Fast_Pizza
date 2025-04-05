@@ -4,6 +4,7 @@ from typing import List, Optional
 from app.configs.db import get_db
 from app.services.menu_service import ProdutoService
 from app.schemas.menu_schema import ProdutoCreate, ProdutoResponse
+from app.utils.dependencies import get_current_user
 
 router = APIRouter(prefix="/api/menu", tags=["Menu"])
 
@@ -27,7 +28,8 @@ def adicionar_produto(
     categoria: str = Form(...),
     descricao: str = Form(...),
     imagem: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
 ):
     produto_data = ProdutoCreate(
         nome=nome,
@@ -50,7 +52,8 @@ def atualizar_produto(
     categoria: str = Form(...),
     descricao: str = Form(...),
     imagem: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
 ):
     produto_data = ProdutoCreate(
         nome=nome,
@@ -67,7 +70,11 @@ def atualizar_produto(
     )
 
 @router.delete("/{produto_id}")
-def remover_produto(produto_id: int, db: Session = Depends(get_db)):
+def remover_produto(
+    produto_id: int, 
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
     produto_removido = ProdutoService.remover_produto(db, produto_id)
     if not produto_removido:
         raise HTTPException(status_code=404, detail="Produto não encontrado")

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 password: password
             };
 
-            const response = await fetch("/user/cadastro/", {
+            const response = await fetch("/api/users/cadastro/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json" 

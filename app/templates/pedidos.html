@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/pedidos.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="/menu">Cardápio</a></li>
+              <li><a href="/pedidos">Pedidos</a></li>
+              <li><a href="/promocoes">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
+    </header>
+
+    <main>
+        <h1 class="pedidos-title">Pedidos</h1>
+        <button id="newOrderBtn" class="new-order-btn">Novo Pedido</button>
+
+        <div id="newOrderModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Novo Pedido</h2>
+                <form id="newOrderForm">
+                    <div class="form-group">
+                        <label for="items">Itens do Pedido:</label>
+                        <select id="items" name="items" multiple required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalAmount">Valor Total:</label>
+                        <input type="number" id="totalAmount" name="total_amount" step="0.01" readonly>
+                    </div>
+                    <div id="errorMessage" class="error-message"></div>
+                    <button type="submit" class="form-submit">Criar Pedido</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Editar Status do Pedido</h2>
+                <div id="editErrorMessage" class="error-message"></div>
+                <form id="editOrderForm">
+                    <input type="hidden" id="editOrderId">
+                    <div class="form-group">
+                        <label for="editStatus">Status:</label>
+                        <select id="editStatus" name="status" required>
+                            <option value="pendente">Pendente</option>
+                            <option value="em_preparo">Em Preparo</option>
+                            <option value="pronto">Pronto</option>
+                            <option value="entregue">Entregue</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-submit">Atualizar Status</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Confirmar Exclusão</h2>
+                <p>Tem certeza que deseja excluir este pedido?</p>
+                <div class="modal-actions">
+                    <button id="cancelDelete" class="btn-cancel">Cancelar</button>
+                    <button id="confirmDelete" class="btn-delete">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/pedidos.js"></script>
+    <script src="../static/js/auth.js"></script>
+</body>
+</html> 

@@ -4,171 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio</title>
-    <link rel="stylesheet" href="../static/navbar.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/menu.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-        
-    body {
-        background-color: #000;
-        color: #fff;
-    }
-
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        width: 250px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        background-color: #222;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
-
-    .card h3 {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
-    .card p {
-        margin: 5px 0;
-        flex-grow: 1;
-    }
-
-    .card-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-    }
-
-    .edit-btn, .delete-btn {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .edit-btn {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    .delete-btn {
-        background-color: #f44336;
-        color: white;
-    }
-
-    .add-item-btn {
-        display: block;
-        margin: 100px auto;
-        padding: 10px 15px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .add-item-btn:hover {
-        background-color: #45a049;
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-        background-color: #222;
-        color: #fff;
-        margin: 5% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        border-radius: 8px;
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .close:hover {
-        color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-        background-color: #333;
-        color: #fff;
-    }
-
-    .form-group option {
-        color: #fff;
-    }
-
-    .image-preview {
-        max-width: 200px;
-        max-height: 200px;
-        margin-top: 10px;
-        display: none;
-        border-radius: 4px;
-    }
-
-    .form-submit {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .form-submit:hover {
-        background-color: #45a049;
-    }
-    </style>
 </head>
 <body>
     <header>
@@ -191,52 +29,102 @@
           </nav>
     </header>
 
-    <button id="addItemBtn" class="add-item-btn">Adicionar Item</button>
+    <main>
+        <h1 class="menu-title">Cardápio</h1>
+        <button id="addItemBtn" class="add-item-btn">Adicionar Item</button>
+        <div id="cardContainer" class="items-grid">
+        </div>
+    </main>
 
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Adicionar Novo Item</h2>
+            <div id="errorMessage" class="error-message"></div>
             <form id="itemForm">
                 <div class="form-group">
-                    <label for="itemName">Nome do Item:</label>
-                    <input type="text" id="itemName" required>
+                    <label for="itemName">Nome</label>
+                    <input type="text" id="itemName" name="nome" required>
                 </div>
                 <div class="form-group">
-                    <label for="itemDescription">Descrição:</label>
-                    <textarea id="itemDescription" rows="3" required></textarea>
+                    <label for="itemDescription">Descrição</label>
+                    <textarea id="itemDescription" name="descricao" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="itemPrice">Preço:</label>
-                    <input type="number" id="itemPrice" step="0.01" required>
+                    <label for="itemPrice">Preço</label>
+                    <input type="number" id="itemPrice" name="preco" step="0.01" required>
                 </div>
                 <div class="form-group">
-                    <label for="itemCategory">Categoria:</label>
-                    <select id="itemCategory" required>
-                        <option value="">Selecione uma categoria</option>
+                    <label for="itemCategory">Categoria</label>
+                    <select id="itemCategory" name="categoria" required>
                         <option value="pizza">Pizza</option>
                         <option value="bebida">Bebida</option>
                         <option value="sobremesa">Sobremesa</option>
-                        <option value="acompanhamento">Acompanhamento</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="itemImage">Imagem:</label>
-                    <input type="file" id="itemImage" accept="image/*">
-                    <img id="imagePreview" class="image-preview" alt="Preview da imagem">
+                    <label for="itemImage">Imagem</label>
+                    <input type="file" id="itemImage" name="imagem" accept="image/*">
+                    <img id="imagePreview" class="image-preview" alt="Preview">
                 </div>
-                <div id="errorMessage" class="error-message"></div>
-                <div id="loadingIndicator" class="loading"></div>
+                <div id="loadingIndicator" class="loading">Carregando...</div>
                 <button type="submit" class="form-submit">Adicionar</button>
             </form>
         </div>
     </div>
 
-    <div id="cardContainer" class="card-container">
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Item</h2>
+            <div id="editErrorMessage" class="error-message"></div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editItemName">Nome</label>
+                    <input type="text" id="editItemName" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemDescription">Descrição</label>
+                    <textarea id="editItemDescription" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editItemPrice">Preço</label>
+                    <input type="number" id="editItemPrice" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemCategory">Categoria</label>
+                    <select id="editItemCategory" name="categoria" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="bebida">Bebida</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editItemImage">Imagem</label>
+                    <input type="file" id="editItemImage" name="imagem" accept="image/*">
+                    <img id="editImagePreview" class="image-preview" alt="Preview">
+                </div>
+                <button type="submit" class="form-submit">Salvar Alterações</button>
+            </form>
+        </div>
     </div>
 
-    <script src="../static/mobile.js"></script>
-    <script src="../static/request.js"></script>
-    <script src="../static/menu.js"></script>
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este item?</p>
+            <div class="modal-actions">
+                <button id="cancelDelete" class="btn-cancel">Cancelar</button>
+                <button id="confirmDelete" class="btn-delete">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/menu.js"></script>
+    <script src="../static/js/auth.js"></script>
 </body>
 </html>

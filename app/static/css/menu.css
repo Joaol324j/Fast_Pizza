@@ -1,0 +1,419 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+}
+
+.menu-title {
+    text-align: center;
+    font-weight: 700;
+    color: #8B0000;
+    margin: 80px 0 40px 0;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.menu-title:after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: #FFD700;
+    margin: 20px auto;
+    border-radius: 2px;
+}
+
+.add-item-btn {
+    display: block;
+    margin: 0 auto 40px;
+    padding: 14px 28px;
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.add-item-btn:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-item-btn:active {
+    transform: translateY(0);
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 0, 0, 0.1);
+}
+
+.card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    margin: 0 0 12px 0;
+    color: #8B0000;
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.card p {
+    margin: 0 0 16px 0;
+    color: #666;
+    font-size: 1em;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.card .price {
+    color: #8B0000;
+    font-weight: 700;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.card .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.btn-edit, .btn-delete {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit {
+    background-color: #FFD700;
+    color: #8B0000;
+}
+
+.btn-edit:hover {
+    background-color: #FFC107;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.btn-delete {
+    background-color: #8B0000;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #6B0000;
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Estilos específicos para o modal de deletar */
+#deleteModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+#deleteModal h2 {
+    color: #8B0000;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+#deleteModal p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#cancelDelete,
+#confirmDelete {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    letter-spacing: 0.5px;
+}
+
+#cancelDelete {
+    background-color: #e9ecef;
+    color: #495057;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#cancelDelete:hover {
+    background-color: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#confirmDelete {
+    background-color: #8B0000;
+    color: white;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+}
+
+#confirmDelete:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #8B0000;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.image-preview {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+}
+
+.loading {
+    color: #666;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    display: none;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.form-submit:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+}
+
+@media (max-width: 992px) {
+    main {
+        padding: 30px;
+    }
+
+    .menu-title {
+        font-size: 2.4em;
+        margin: 60px 0 30px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .card {
+        height: 420px;
+    }
+
+    .modal-content {
+        padding: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    main {
+        padding: 20px;
+    }
+
+    .menu-title {
+        font-size: 2em;
+        margin: 40px 0 25px 0;
+    }
+
+    .add-item-btn {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .items-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .card {
+        height: auto;
+        min-height: 400px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+}

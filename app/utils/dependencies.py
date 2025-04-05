@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.configs.db import get_db
 from app.utils.jwt import verify_token
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/users/login")
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     """ Dependência para obter o usuário atual a partir do token JWT """

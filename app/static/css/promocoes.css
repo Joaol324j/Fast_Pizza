@@ -1,0 +1,390 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+}
+
+.promocoes-title {
+    text-align: center;
+    font-weight: 700;
+    color: #8B0000;
+    margin: 80px 0 40px 0;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.promocoes-title:after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: #FFD700;
+    margin: 20px auto;
+    border-radius: 2px;
+}
+
+.new-promotion-btn {
+    display: block;
+    margin: 0 auto 40px;
+    padding: 14px 28px;
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.new-promotion-btn:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.new-promotion-btn:active {
+    transform: translateY(0);
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.promotions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.promotions-table th {
+    background-color: #8B0000;
+    color: #FFD700;
+    padding: 18px 24px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.promotions-table td {
+    padding: 16px 24px;
+    color: #333;
+    font-weight: 500;
+    vertical-align: middle;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.promotions-table tr:not(:first-child):hover td {
+    background-color: #fff9f0;
+    transform: scale(1.005);
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.1);
+}
+
+.promotions-table tr:last-child td {
+    border-bottom: none;
+}
+
+.promotions-table th:first-child,
+.promotions-table td:first-child {
+    padding-left: 30px;
+}
+
+.promotions-table th:last-child,
+.promotions-table td:last-child {
+    padding-right: 30px;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-btn {
+    background-color: #FFD700;
+    color: #8B0000;
+}
+
+.edit-btn:hover {
+    background-color: #FFC107;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.delete-btn {
+    background-color: #8B0000;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #6B0000;
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #8B0000;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #FFD700;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #8B0000;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group select[multiple] {
+    height: 120px;
+}
+
+.form-submit {
+    background-color: #8B0000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-submit:hover {
+    background-color: #FFD700;
+    color: #8B0000;
+    transform: translateY(-2px);
+}
+
+.error-message {
+    color: #dc3545;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    display: none;
+}
+
+#deleteModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+#deleteModal h2 {
+    color: #8B0000;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+#deleteModal p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#cancelDelete,
+#confirmDelete {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    letter-spacing: 0.5px;
+}
+
+#cancelDelete {
+    background-color: #e9ecef;
+    color: #495057;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#cancelDelete:hover {
+    background-color: #dee2e6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#confirmDelete {
+    background-color: #8B0000;
+    color: white;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+}
+
+#confirmDelete:hover {
+    background-color: #6B0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+}
+
+@media (max-width: 992px) {
+    main {
+        padding: 20px;
+    }
+    
+    .promocoes-title {
+        font-size: 2.2em;
+        margin: 60px 0 30px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .promotions-table {
+        min-width: 800px;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        width: 90%;
+    }
+
+    .promocoes-title {
+        margin: 60px 0 20px 0;
+        font-size: 2em;
+    }
+
+    .action-btn {
+        margin: 4px;
+        display: block;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .promocoes-title {
+        font-size: 1.8em;
+    }
+    
+    .new-promotion-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .table-container {
+        padding: 10px;
+    }
+} 

@@ -4,41 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastPizza</title>
-    <link rel="stylesheet" href="../static/navbar.css">
-    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 <body>
     <header>
-        <nav>
-          <a class="logo" href="/">FastPizza</a>
-          <div class="mobile-menu">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-          </div>
-          <ul class="nav-list">
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Cadastro</a></li>
-            <li><a href="#">Cardápio</a></li>
-            <li><a href="#">Pedidos</a></li>
-            <li><a href="#">Promoções</a></li>
-            <li><a href="/logout">Sair</a></li>
-        </ul>        
-        </nav>
-      </header>
-      <main>
+      <nav>
+        <a class="logo" href="/">FastPizza</a>
+        <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <ul class="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Cadastro</a></li>
+          <li><a href="/menu">Cardápio</a></li>
+          <li><a href="/pedidos">Pedidos</a></li>
+          <li><a href="/promocoes">Promoções</a></li>
+          <li><a href="/logout">Sair</a></li>
+      </ul>        
+      </nav>
+    </header>
+    <main>
         <div class="container">
             <div class="text">
                 <h1>Bem-vindo à FastPizza</h1>
-                <p>Bem-vindo à FastPizza, o lugar onde a paixão pela pizza se transforma em sabores irresistíveis! 
-                  Nosso site foi criado para proporcionar uma experiência rápida, prática e deliciosa, garantindo que você tenha acesso ao melhor cardápio 
-                  de pizzas artesanais com apenas alguns cliques.</p>
+                <p>Bem-vindo à FastPizza, o lugar onde a paixão pela pizza se transforma em sabores
+                   irresistíveis! Nosso site foi criado para proporcionar uma experiência rápida, prática
+                   e deliciosa, garantindo que você tenha acesso ao melhor cardápio
+                   de pizzas artesanais com apenas alguns cliques.</p>
             </div>
-            <div class="image"></div>
+            <div class="image">
+                <img src="../static/images/pizza.png" alt="Pizza deliciosa">
+            </div>
         </div>
     </main>
-    <script src="../static/mobile.js"></script>
-    <script src="../static/request.js"></script>
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
 </body>
 </html>

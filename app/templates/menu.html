@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/menu.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo" href="/">FastPizza</a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Cadastro</a></li>
+              <li><a href="/menu">Cardápio</a></li>
+              <li><a href="/pedidos">Pedidos</a></li>
+              <li><a href="/promocoes">Promoções</a></li>
+              <li><a href="/logout">Sair</a></li>
+          </ul>        
+          </nav>
+    </header>
+
+    <main>
+        <h1 class="menu-title">Cardápio</h1>
+        <button id="addItemBtn" class="add-item-btn">Adicionar Item</button>
+        <div id="cardContainer" class="items-grid">
+        </div>
+    </main>
+
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar Novo Item</h2>
+            <div id="errorMessage" class="error-message"></div>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label for="itemName">Nome</label>
+                    <input type="text" id="itemName" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Descrição</label>
+                    <textarea id="itemDescription" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemPrice">Preço</label>
+                    <input type="number" id="itemPrice" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemCategory">Categoria</label>
+                    <select id="itemCategory" name="categoria" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="bebida">Bebida</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="itemImage">Imagem</label>
+                    <input type="file" id="itemImage" name="imagem" accept="image/*">
+                    <img id="imagePreview" class="image-preview" alt="Preview">
+                </div>
+                <div id="loadingIndicator" class="loading">Carregando...</div>
+                <button type="submit" class="form-submit">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Item</h2>
+            <div id="editErrorMessage" class="error-message"></div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editItemName">Nome</label>
+                    <input type="text" id="editItemName" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemDescription">Descrição</label>
+                    <textarea id="editItemDescription" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editItemPrice">Preço</label>
+                    <input type="number" id="editItemPrice" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemCategory">Categoria</label>
+                    <select id="editItemCategory" name="categoria" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="bebida">Bebida</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editItemImage">Imagem</label>
+                    <input type="file" id="editItemImage" name="imagem" accept="image/*">
+                    <img id="editImagePreview" class="image-preview" alt="Preview">
+                </div>
+                <button type="submit" class="form-submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este item?</p>
+            <div class="modal-actions">
+                <button id="cancelDelete" class="btn-cancel">Cancelar</button>
+                <button id="confirmDelete" class="btn-delete">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/mobile.js"></script>
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/menu.js"></script>
+    <script src="../static/js/auth.js"></script>
+</body>
+</html>

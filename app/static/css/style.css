@@ -50,7 +50,6 @@ main {
     height: auto;
     max-height: 500px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {

@@ -32,7 +32,6 @@ class PedidoService:
             db.add(pedido_produto)
             total_pedido += preco_final * item.quantidade
 
-        # Atualiza o total do pedido
         novo_pedido.total = total_pedido
         db.commit()
         db.refresh(novo_pedido)

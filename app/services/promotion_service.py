@@ -18,7 +18,6 @@ class PromocaoService:
     def adicionar_promocao(db: Session, promocao_data: PromocaoCreate):
         promocao = PromocaoRepository.create(db, promocao_data)
         
-        # Aplicando o desconto ao produto
         if promocao.produto_id:
             produto = ProdutoRepository.get_by_id(db, promocao.produto_id)
             if produto:
@@ -42,7 +41,6 @@ class PromocaoService:
     def atualizar_promocao(db: Session, promocao_id: int, promocao_data: PromocaoCreate):
         promocao_atualizada = PromocaoRepository.update(db, promocao_id, promocao_data)
         
-        # Atualizando o preço do produto após a mudança na promoção
         if promocao_atualizada and promocao_atualizada.produto_id:
             produto = ProdutoRepository.get_by_id(db, promocao_atualizada.produto_id)
             if produto:

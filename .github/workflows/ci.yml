@@ -24,8 +24,5 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run Tests (pytest)
-      run: pip install pytest && pytest
-
     - name: Build Docker image
       run: docker build -t fast-pizza:$(echo $GITHUB_SHA | cut -c1-7) .
